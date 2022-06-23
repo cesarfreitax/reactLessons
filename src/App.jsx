@@ -1,28 +1,27 @@
-import React, {useState, useEffect } from 'react';
-import User from './components/User';
+import React, {useState, useRef } from 'react';
+
 
 export default function App() {
 
-    // State
-    const [users, setUsers] = useState([])
+    const [valor, setValor] = useState('teste')
+    const input = useRef()
+    const [valorInput, setValorInput] = useState('')
+
+    function alterar_valor(){
+        setValor("César")
+    }
 
 
-    // Effect
-    useEffect(()=>{
-        fetch("https://dummyjson.com/users")
-        .then(response => response.json())
-        .then(json => {
-            console.log(json.users)
-            setUsers(json.users)
-        })
-    }, []);
+
+
 
     return (
         <>
-            <h1>OLA, REACT!</h1>
-            {users.map(user => {
-                return <User user={user} key={user.id}/>
-            })}
+            <h1>React Hooks - useRef</h1>
+            <hr />
+            <input type="text" ref={input} onChange={e => (setValorInput(e.target.value))} />
+            <p>Valor: {valorInput}</p>
+            <button onClick={alterar_valor}>Alterar valor</button>
         </>
     )
 }
