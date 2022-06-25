@@ -1,42 +1,41 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {useReducer} from 'react';
 
 
 export default function App() {
 
-    const [valor, setValor] = useState(() => { return 0 })
-    const [numero, setNumero] = useState(() => { return 1000 })
-
-    // const valorCalculado = funcaoDemorada(valor)
-    const valorCalculado = useMemo(() => {
-        return funcaoDemorada(valor)
-    }, [valor])
-
-    useEffect(() =>{
-        console.log("renderizou")
+    // Reducer
+    const [state, dispatch] = useReducer(reducer, {
+        valor: 1000,
+        mostrar: true
     })
 
-    function incrementar (){
-        setValor(old => old + 1)
-    }
-
-    function incrementar2 (){
-        setNumero(oldNumero => oldNumero + 100)
-    }
-
-    function funcaoDemorada(num){
-        for(let i=0; i < 1000000000; i++){}
-        return num * 2
+    // Reducer function
+    function reducer(state, action){
+        switch (action.type) {
+            case 'INCREMENTAR':
+                return {
+                    valor: state.valor +1,
+                    mostrar: state.mostrar
+                }
+            case 'VISIBILIDADE':
+                return {
+                    valor: state.valor,
+                    mostrar: !state.mostrar
+                }
+            default:
+                return state
+        }
     }
 
     return (
         <>
-            <h1>React Hooks - useMemo</h1>
+            <h1>React Hooks - useReducer</h1>
             <hr />
-            <p>Valor: {valor}</p>
-            <p>Numero: {numero}</p>
-            <p>Valor calculado: {valorCalculado}</p>
-            <button onClick={incrementar}>Incrementar</button>
-            <button onClick={incrementar2}>Incrementar 2</button>
+            <p>Valor: {state.valor}</p>
+            {state.mostrar && <p>Visível</p>}
+
+            <button onClick={() => { dispatch({type: "INCREMENTAR"}) }}>Incrementar</button>
+            <button onClick={() => { dispatch({type: "VISIBILIDADE"}) }}>Mostrar/Esconder</button>
         </>
     )
 }
