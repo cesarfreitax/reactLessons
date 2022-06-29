@@ -1,29 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 
 
 export default function App() {
 
-    const [num, setNum] = useState()
-
-    const tabuada = () => {
-        let resultado = []
-        if(isNaN(num)){
-            return resultado;
-        } else {
-            for(let m = 1; m <= 10; m++){
-                resultado.push(num*m)
-            }
-            return resultado;
-        }
-    }
-
     return (
         <>
-            <h1>React - Tabuada</h1>
-            <input type="number" value={num} onChange={e => setNum(parseInt(e.target.value))} />
+            <h1>React - Adicionar o Bootstrap ao projeto</h1>
             <hr />
-            {tabuada().map(num => <p>{num}</p>)}
+            <a href="#" className="btn btn-primary">Botao de Bootstrap</a>
+            <div className="alert alert-success">Operacao relaizada com sucesso!</div>
         </>
     )
 }
