@@ -51,7 +51,18 @@ function App() {
         }
     }
 
-
+    // persistencia do state
+    // carregar lista de contatos no localStorage
+    useEffect(() => {
+        if(localStorage.getItem('meus_contatos') !== null){
+            setListaContatos(JSON.parse(localStorage.getItem('meus_contatos')))
+        }
+    }, [])
+    
+    // atualizar lista de contatos no localStorage
+    useEffect(() => {
+        localStorage.setItem('meus_contatos', JSON.stringify(listaContatos))
+    }, [listaContatos])
 
 
 
