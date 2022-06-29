@@ -1,7 +1,5 @@
-import { createRoot } from 'react-dom/client'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.bundle'
-import App from './App'
+import { createRoot } from 'react-dom/client';
+import App from './App.jsx';
 
-const root = document.querySelector('#root')
-createRoot(root).render(<App />)
+
+createRoot(document.querySelector("#root")).render(<App />)
