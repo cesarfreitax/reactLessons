@@ -1,55 +1,81 @@
-import React, { useState } from 'react'
-import Contato from './components/Contato';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useRef, useEffect } from 'react'
+import { v4 as key } from 'uuid';
 
 function App() {
 
-    const [contato, setContato] = useState({nome: '', telefone: ''});
+    // states
+    const [contato, setContato] = useState({ nome: '', telefone: '' });
     const [listaContatos, setListaContatos] = useState([]);
-    
-    function definirNome (e){
-        setContato({...contato, nome: e.target.value})
-    }
 
-    function definirTelefone (e){
-        setContato({...contato, telefone: e.target.value})
-    }
+    // useRef
+    const inputNome = useRef()
+    const inputTelefone = useRef()
 
-    function adicionarContato (){
-        // validacao dos campos
+    // funcoes
+    const definirNome = (e) => {
+        setContato({ ...contato, nome: e.target.value });
+    };
 
+    const definirTelefone = (e) => {
+        setContato({ ...contato, telefone: e.target.value });
+    };
 
+    const adicionarContato = () => {
+        // validacao para o campo n ser em branco
+        if (contato.nome === '' || contato.telefone === '') {
+            console.log("Preencha os campos corretamente!");
+            return;
+        }
 
-        // adicionar novo contato na lista
+        // verificar se o contato existe na lissta
+        let duplicado = listaContatos.find((ctt) => ctt.nome === contato.nome && ctt.telefone === contato.telefone)
+        if (typeof duplicado !== 'undefined') {
+            console.log("Este telefone já existe na lista!")
+            inputTelefone.current.focus()
+            return;
+        }
+
+        // adicionar contato
         setListaContatos([...listaContatos, contato])
+
+        // limpar o input
+        setContato({ nome: '', telefone: '' })
+
+        // colocar focus no input
+        inputNome.current.focus()
     }
+
+    const atalhoAdicionarContato = (e) => {
+        if(e.code === 'Enter'){
+            adicionarContato()
+        }
+    }
+
+
+
+
 
     return (
-        <div>
-            <h1>Minha lista de contatos</h1>
+        <>
+            <h1>Exercício - Lista de contatos</h1>
             <hr />
-            <div>
-                <label>Nome:</label><br />
-                <input type="text" onChange={definirNome} value={contato.nome} />
-            </div>
-            <div>
-                <label>Telefone:</label><br />
-                <input type="number" onChange={definirTelefone} value={contato.telefone} />
-            </div>
-
-            <button onClick={adicionarContato}>Adicionar Contato</button>
+            <br />
+            <label>Nome:</label>
+            <input type="text" onChange={definirNome} ref={inputNome} value={contato.nome} />
+            <br />
+            <br />
+            <label>Telefone:</label>
+            <input type="number" onChange={definirTelefone} ref={inputTelefone} onKeyUp={atalhoAdicionarContato} value={contato.telefone} />
+            <br />
+            <br />
+            <button onClick={adicionarContato}>Adicionar contato</button>
+            <br />
             <hr />
-
-            {/* <ListaContatos listaContatos={listaContatos}/> */}
-
-            <ul>
-                {listaContatos.map(ctt => {
-                    return <Contato key={uuidv4()} nome={ctt.nome} telefone={ctt.telefone}/>
-                })}
-            </ul>
-
-
-        </div>
+            <br />
+            {listaContatos.map(contato => {
+                return <li key={key()}>Nome: {contato.nome} - Telefone: {contato.telefone}</li>
+            })}
+        </>
     )
 }
 
