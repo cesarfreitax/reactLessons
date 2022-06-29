@@ -51,6 +51,10 @@ function App() {
         }
     }
 
+    const limparStorage = () => {
+        setListaContatos([]);
+    }
+
     // persistencia do state
     // carregar lista de contatos no localStorage
     useEffect(() => {
@@ -80,6 +84,8 @@ function App() {
             <br />
             <br />
             <button onClick={adicionarContato}>Adicionar contato</button>
+            <br />
+            <button onClick={limparStorage}>Limpar Storage</button>
             <br />
             <hr />
             <br />
