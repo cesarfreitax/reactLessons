@@ -8,15 +8,22 @@ import Home from './components/Home'
 import Contact from './components/Contact'
 import Services from './components/Services'
 import Error from './components/Error'
+import About from './components/About'
 
 function App() {
 
     return (
         <>
 
-            <h1>React Router Dom</h1>
+            <div className="container-fluid bg-dark text-white">
+                <div className="row">
+                    <div className="col text-center">
+                        <h3>React Router Dom</h3>
+                    </div>
+                </div>
+            </div>
 
-            <nav className='container'>
+            <nav className='container mt-3'>
                 <div className="row">
                     <div className="col text-center">
                         <Link className='btn btn-primary m-3' to='/'>Home</Link>
@@ -31,6 +38,7 @@ function App() {
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/services' element={<Services />} />
                 <Route path='/*' element={<Error />} />
+                <Route path='/about' element={<About />} />
             </Routes>
 
         </>
