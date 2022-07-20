@@ -11,14 +11,23 @@ import Error from './components/Error'
 import About from './components/About'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import AreaLogado from './components/AreaLogado'
+import { useState } from 'react';
 
 function App() {
+
+    const [logado] = useState(true)
 
     return (
         <>
             <Header />
             <Routes>
-                <Route path='/' element={<Home />} />
+                <Route path='/' element={
+                logado? 
+                <AreaLogado />
+                :
+                <Home />
+                } />
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/services' element={<Services />} />
                 <Route path='/*' element={<Error />} />
