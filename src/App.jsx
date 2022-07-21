@@ -16,14 +16,18 @@ import { useState } from 'react';
 
 function App() {
 
-    const [logado] = useState(true)
+    const [logado] = useState(false)
+
+    function logadoFunction(){
+        alert("Vc está logado!")
+    }
 
     return (
         <>
             <Header />
             <Routes>
                 <Route path='/' element={
-                logado? 
+                logado?
                 <AreaLogado />
                 :
                 <Home />
